@@ -78,22 +78,6 @@ public class ProductController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // @PostMapping
-    // public ResponseEntity<Product> createProduct(@RequestBody Product productDetails) {
-    //     return ResponseEntity.ok(productService.createProduct(productDetails));
-    // }
-
-    // @PutMapping("/{code}")
-    // public ResponseEntity<Product> updateProduct(@PathVariable String code, @RequestBody Product productDetails) {
-    //     return productService.updateProduct(code, productDetails)
-    //             .map(ResponseEntity::ok)
-    //             .orElse(ResponseEntity.notFound().build());
-    // }
-
-    // @DeleteMapping("/{code}")
-    // public ResponseEntity<Void> deleteProduct(@PathVariable String code) {
-    //     return productService.deleteProduct(code) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
-    // }
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product productDetails) {
         try {
