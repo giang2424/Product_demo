@@ -1,6 +1,7 @@
 /// Controller database
 
 package com.example.demo.controller;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,6 +71,45 @@ public class ProductController {
 
         return comparator;
     }
+
+    @GetMapping("/type")
+    public ResponseEntity<List<Product>> getProductsByType(@RequestParam(value = "type") String type) {
+        List<Product> products = productService.getProductByType(type);
+        return ResponseEntity.ok(products);
+    }
+    @GetMapping("/name")
+    public ResponseEntity<List<Product>> getProductsByName(@RequestParam(value = "name") String name) {
+        List<Product> products = productService.getProductByName(name);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/namePrefix")
+    public ResponseEntity<List<Product>> getProductsByNamePrefix(@RequestParam String namePrefix) {
+        List<Product> products = productService.getProductsByNamePrefix(namePrefix);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/priceOver")
+    public ResponseEntity<List<Product>> getProductsByPriceOver(@RequestParam double price) {
+        List<Product> products = productService.getProductsByPriceGreaterThan(price);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/quantity")
+    public ResponseEntity<List<Product>> getProductsByQuantityGreaterThan(@RequestParam int quantity) {
+        List<Product> products = productService.getProductsByQuantityGreaterThan(quantity).stream()
+                .sorted(Comparator.comparing(Product::getQuantity).reversed())
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/importDate")
+    public ResponseEntity<List<Product>> getProductsByLastImportDateBefore(@RequestParam String date) {
+        LocalDate importDate = LocalDate.parse(date);
+        List<Product> products = productService.getProductsByLastImportDateBefore(importDate);
+        return ResponseEntity.ok(products);
+    }
+    
 
     @GetMapping("/{code}")
     public ResponseEntity<Product> getProduct(@PathVariable String code) {

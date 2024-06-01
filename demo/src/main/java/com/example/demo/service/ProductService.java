@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,29 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<Product> getProductByType(String type) {
+        return productRepository.findByType(type);
+    }
+    public List<Product> getProductByName(String name) {
+        return productRepository.findByName(name);
+    }
+
+    public List<Product> getProductsByNamePrefix(String namePrefix) {
+        return productRepository.findByNamePrefix(namePrefix);
+    }
+
+    public List<Product> getProductsByPriceGreaterThan(double price) {
+        return productRepository.findByPriceGreaterThan(price);
+    }
+
+    public List<Product> getProductsByQuantityGreaterThan(int quantity) {
+        return productRepository.findByQuantityGreaterThan(quantity);
+    }
+
+    public List<Product> getProductsByLastImportDateBefore(LocalDate date) {
+        return productRepository.findByLastImportDateBefore(date);
+    }
+    
     public Optional<Product> getProductByCode(String code) {
         return Optional.ofNullable(productRepository.findByCode(code));
     }
@@ -28,13 +51,15 @@ public class ProductService {
 
     public Product createProduct(Product productDetails) {
         Product product = new Product();
-        product.setId(UUID.randomUUID()); // Generate UUID
+        // product.setId(UUID.randomUUID()); // Generate UUID
         product.setCode(productDetails.getCode());
         product.setName(productDetails.getName());
         product.setCategory(productDetails.getCategory());
         product.setBrand(productDetails.getBrand());
         product.setType(productDetails.getType());
         product.setDescription(productDetails.getDescription());
+        product.setPrice(productDetails.getPrice());
+        product.setQuantity(productDetails.getQuantity());
         return productRepository.save(product);
     }
 
@@ -55,6 +80,18 @@ public class ProductService {
             }
             if (productDetails.getDescription() != null) {
                 product.setDescription(productDetails.getDescription());
+            }
+            if (productDetails.getDescription() != null) {
+                product.setDescription(productDetails.getDescription());
+            }
+            if (productDetails.getPrice() != 0) {
+                product.setPrice(productDetails.getPrice());
+            }
+            if (productDetails.getQuantity() != 0) {
+                product.setQuantity(productDetails.getQuantity());
+            }
+            if (productDetails.getLastImportDate() != null) {
+                product.setLastImportDate(productDetails.getLastImportDate());
             }
             return productRepository.save(product);
         });

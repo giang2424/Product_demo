@@ -1,4 +1,4 @@
-`CREATE TABLE `products` (
+CREATE TABLE `products` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `code` VARCHAR(9) NOT NULL,
   `name` VARCHAR(90) NOT NULL,
