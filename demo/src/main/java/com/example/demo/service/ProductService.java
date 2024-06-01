@@ -60,6 +60,7 @@ public class ProductService {
         product.setDescription(productDetails.getDescription());
         product.setPrice(productDetails.getPrice());
         product.setQuantity(productDetails.getQuantity());
+        product.setLastImportDate(productDetails.getLastImportDate());
         return productRepository.save(product);
     }
 
